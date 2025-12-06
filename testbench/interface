@@ -1,0 +1,83 @@
+interface apb_if(input logic pclk,prstn);
+  logic [31:0]paddr;
+  logic penable;
+  logic pwrite;
+  logic [31:0]pwdata;
+  logic [31:0]prdata;
+  logic pready;
+  logic pslverr;
+  logic [3:0]pstrb;
+  logic psel;
+  
+  clocking drv_cb @(posedge pclk);
+    default input #0 output #0;
+    output paddr,penable,pwrite,pwdata,pstrb,psel;
+    input pready,prdata,pslverr;
+  endclocking
+  
+    
+  clocking mon_cb @(posedge pclk);
+    default input #0 output #0;
+    input paddr,penable,pwrite,pwdata,pstrb,prdata,pslverr,pready,psel;
+  endclocking
+  
+  modport drv(clocking drv_cb, input pclk,prstn);
+  modport mon(clocking mon_cb, input pclk,prstn);
+
+    
+    property p1;
+      @(posedge pclk)disable iff (!prstn)
+      (psel && penable && pready && !pwrite)|-> !$isunknown(prdata) && $stable(paddr); 
+    endproperty
+    
+    assert property(p1)
+      $info("p1 pass");
+    else
+      $error("p1 fail");
+    
+    property p2;
+      @(posedge pclk)disable iff (!prstn)
+      (psel && penable && pready && pwrite)|-> !$isunknown(pwdata) && $stable(paddr); 
+    endproperty
+      assert property(p2)
+        $info("p2 pass");
+      else
+        $error("p2 fail");
+        
+   property p3;
+     @(posedge pclk)disable iff (!prstn)
+       pslverr |-> (psel && penable);
+   endproperty
+   assert property(p3)
+     $info("p3 pass");
+   else
+     $error("p3 fail");
+        
+       
+   property p4;
+     @(posedge pclk)disable iff (!prstn)
+     (psel && penable) |-> ##[0:10]pready;
+   endproperty
+    assert property(p4)
+      $info("p4 pass");
+    else
+      $error("p4 fail");
+        
+   property p5;
+     @(posedge pclk)disable iff (!prstn)
+     (psel && penable &&!pready) |-> $stable(paddr) && $stable(pwrite) && $stable(pstrb) && $stable(pwdata);
+   endproperty
+      assert property(p5)
+        $info("p5 pass");
+      else
+        $error("p5 fail");
+        
+    property p6;
+      @(posedge pclk)disable iff (!prstn)
+      (psel && !pwrite) |->(pstrb==0);
+   endproperty
+        assert property(p6)
+          $info("p6 pass");
+        else
+          $error("p6 fail");
+endinterface
