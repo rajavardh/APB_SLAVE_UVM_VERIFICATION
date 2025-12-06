@@ -1,0 +1,153 @@
+# UVM_INFO apb_seq.sv(66) @ 0: reporter@@seq [VSEQ]  Address: 35
+# UVM_INFO apb_seq.sv(68) @ 0: reporter@@seq [VSEQ] Starting Write Sequence
+# UVM_INFO apb_driver.sv(64) @ 15: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(63) @ 15: uvm_test_top.env.scb [APB_SCB] WRITE to Addr=35 Data=247 Strobe=1011
+# UVM_INFO apb_seq.sv(75) @ 15: reporter@@seq [VSEQ] Starting Read Sequence
+# ** Error: p2 fail
+#    Time: 15 ns Started: 15 ns  Scope: top.vif File: interface.sv Line: 45
+# ** Info: p4 pass
+#    Time: 15 ns Started: 15 ns  Scope: top.vif File: interface.sv Line: 62
+# ** Info: p6 pass
+#    Time: 25 ns Started: 25 ns  Scope: top.vif File: interface.sv Line: 80
+# UVM_INFO apb_driver.sv(64) @ 35: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(75) @ 35: uvm_test_top.env.scb [APB_SCB] READ MATCH Addr=35 Data=247
+# UVM_INFO apb_seq.sv(80) @ 35: reporter@@seq [VSEQ] checking pslverr
+# ** Info: p4 pass
+#    Time: 35 ns Started: 35 ns  Scope: top.vif File: interface.sv Line: 62
+# ** Info: p1 pass
+#    Time: 35 ns Started: 35 ns  Scope: top.vif File: interface.sv Line: 34
+# ** Info: p6 pass
+#    Time: 35 ns Started: 35 ns  Scope: top.vif File: interface.sv Line: 80
+# UVM_INFO apb_driver.sv(64) @ 55: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(45) @ 55: uvm_test_top.env.scb [APB_SCB] PSLVERR received from DUT
+# UVM_INFO apb_seq.sv(66) @ 55: reporter@@seq [VSEQ]  Address: 222
+# UVM_INFO apb_seq.sv(68) @ 55: reporter@@seq [VSEQ] Starting Write Sequence
+# ** Info: p4 pass
+#    Time: 55 ns Started: 55 ns  Scope: top.vif File: interface.sv Line: 62
+# ** Info: p2 pass
+#    Time: 55 ns Started: 55 ns  Scope: top.vif File: interface.sv Line: 43
+# ** Info: p3 pass
+#    Time: 55 ns Started: 55 ns  Scope: top.vif File: interface.sv Line: 52
+# UVM_INFO apb_driver.sv(64) @ 75: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(63) @ 75: uvm_test_top.env.scb [APB_SCB] WRITE to Addr=222 Data=0 Strobe=1100
+# UVM_INFO apb_seq.sv(75) @ 75: reporter@@seq [VSEQ] Starting Read Sequence
+# ** Info: p4 pass
+#    Time: 75 ns Started: 75 ns  Scope: top.vif File: interface.sv Line: 62
+# ** Info: p2 pass
+#    Time: 75 ns Started: 75 ns  Scope: top.vif File: interface.sv Line: 43
+# ** Info: p6 pass
+#    Time: 85 ns Started: 85 ns  Scope: top.vif File: interface.sv Line: 80
+# UVM_INFO apb_driver.sv(64) @ 95: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(75) @ 95: uvm_test_top.env.scb [APB_SCB] READ MATCH Addr=222 Data=0
+# UVM_INFO apb_seq.sv(80) @ 95: reporter@@seq [VSEQ] checking pslverr
+# ** Info: p4 pass
+#    Time: 95 ns Started: 95 ns  Scope: top.vif File: interface.sv Line: 62
+# ** Info: p1 pass
+#    Time: 95 ns Started: 95 ns  Scope: top.vif File: interface.sv Line: 34
+# ** Info: p6 pass
+#    Time: 95 ns Started: 95 ns  Scope: top.vif File: interface.sv Line: 80
+# UVM_INFO apb_driver.sv(64) @ 115: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(45) @ 115: uvm_test_top.env.scb [APB_SCB] PSLVERR received from DUT
+# UVM_INFO apb_seq.sv(66) @ 115: reporter@@seq [VSEQ]  Address: 124
+# UVM_INFO apb_seq.sv(68) @ 115: reporter@@seq [VSEQ] Starting Write Sequence
+# ** Info: p4 pass
+#    Time: 115 ns Started: 115 ns  Scope: top.vif File: interface.sv Line: 62
+# ** Info: p2 pass
+#    Time: 115 ns Started: 115 ns  Scope: top.vif File: interface.sv Line: 43
+# ** Info: p3 pass
+#    Time: 115 ns Started: 115 ns  Scope: top.vif File: interface.sv Line: 52
+# UVM_INFO apb_driver.sv(64) @ 135: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(63) @ 135: uvm_test_top.env.scb [APB_SCB] WRITE to Addr=124 Data=153 Strobe=1111
+# UVM_INFO apb_seq.sv(75) @ 135: reporter@@seq [VSEQ] Starting Read Sequence
+# ** Info: p4 pass
+#    Time: 135 ns Started: 135 ns  Scope: top.vif File: interface.sv Line: 62
+# ** Info: p2 pass
+#    Time: 135 ns Started: 135 ns  Scope: top.vif File: interface.sv Line: 43
+# ** Info: p6 pass
+#    Time: 145 ns Started: 145 ns  Scope: top.vif File: interface.sv Line: 80
+# UVM_INFO apb_driver.sv(64) @ 155: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(75) @ 155: uvm_test_top.env.scb [APB_SCB] READ MATCH Addr=124 Data=153
+# UVM_INFO apb_seq.sv(80) @ 155: reporter@@seq [VSEQ] checking pslverr
+# ** Info: p4 pass
+#    Time: 155 ns Started: 155 ns  Scope: top.vif File: interface.sv Line: 62
+# ** Info: p1 pass
+#    Time: 155 ns Started: 155 ns  Scope: top.vif File: interface.sv Line: 34
+# ** Info: p6 pass
+#    Time: 155 ns Started: 155 ns  Scope: top.vif File: interface.sv Line: 80
+# UVM_INFO apb_driver.sv(64) @ 175: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(45) @ 175: uvm_test_top.env.scb [APB_SCB] PSLVERR received from DUT
+# UVM_INFO apb_seq.sv(66) @ 175: reporter@@seq [VSEQ]  Address: 229
+# UVM_INFO apb_seq.sv(68) @ 175: reporter@@seq [VSEQ] Starting Write Sequence
+# ** Info: p4 pass
+#    Time: 175 ns Started: 175 ns  Scope: top.vif File: interface.sv Line: 62
+# ** Info: p2 pass
+#    Time: 175 ns Started: 175 ns  Scope: top.vif File: interface.sv Line: 43
+# ** Info: p3 pass
+#    Time: 175 ns Started: 175 ns  Scope: top.vif File: interface.sv Line: 52
+# UVM_INFO apb_driver.sv(64) @ 195: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(63) @ 195: uvm_test_top.env.scb [APB_SCB] WRITE to Addr=229 Data=256 Strobe=0010
+# UVM_INFO apb_seq.sv(75) @ 195: reporter@@seq [VSEQ] Starting Read Sequence
+# ** Info: p4 pass
+#    Time: 195 ns Started: 195 ns  Scope: top.vif File: interface.sv Line: 62
+# ** Info: p2 pass
+#    Time: 195 ns Started: 195 ns  Scope: top.vif File: interface.sv Line: 43
+# ** Info: p6 pass
+#    Time: 205 ns Started: 205 ns  Scope: top.vif File: interface.sv Line: 80
+# UVM_INFO apb_driver.sv(64) @ 215: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(75) @ 215: uvm_test_top.env.scb [APB_SCB] READ MATCH Addr=229 Data=256
+# UVM_INFO apb_seq.sv(80) @ 215: reporter@@seq [VSEQ] checking pslverr
+# ** Info: p4 pass
+#    Time: 215 ns Started: 215 ns  Scope: top.vif File: interface.sv Line: 62
+# ** Info: p1 pass
+#    Time: 215 ns Started: 215 ns  Scope: top.vif File: interface.sv Line: 34
+# ** Info: p6 pass
+#    Time: 215 ns Started: 215 ns  Scope: top.vif File: interface.sv Line: 80
+# UVM_INFO apb_driver.sv(64) @ 235: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(45) @ 235: uvm_test_top.env.scb [APB_SCB] PSLVERR received from DUT
+# UVM_INFO apb_seq.sv(66) @ 235: reporter@@seq [VSEQ]  Address: 248
+# UVM_INFO apb_seq.sv(68) @ 235: reporter@@seq [VSEQ] Starting Write Sequence
+# ** Info: p4 pass
+#    Time: 235 ns Started: 235 ns  Scope: top.vif File: interface.sv Line: 62
+# ** Info: p2 pass
+#    Time: 235 ns Started: 235 ns  Scope: top.vif File: interface.sv Line: 43
+# ** Info: p3 pass
+#    Time: 235 ns Started: 235 ns  Scope: top.vif File: interface.sv Line: 52
+# UVM_INFO apb_driver.sv(64) @ 255: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(63) @ 255: uvm_test_top.env.scb [APB_SCB] WRITE to Addr=248 Data=0 Strobe=1010
+# UVM_INFO apb_seq.sv(75) @ 255: reporter@@seq [VSEQ] Starting Read Sequence
+# ** Info: p4 pass
+#    Time: 255 ns Started: 255 ns  Scope: top.vif File: interface.sv Line: 62
+# ** Info: p2 pass
+#    Time: 255 ns Started: 255 ns  Scope: top.vif File: interface.sv Line: 43
+# ** Info: p6 pass
+#    Time: 265 ns Started: 265 ns  Scope: top.vif File: interface.sv Line: 80
+# UVM_INFO apb_driver.sv(64) @ 275: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(75) @ 275: uvm_test_top.env.scb [APB_SCB] READ MATCH Addr=248 Data=0
+# UVM_INFO apb_seq.sv(80) @ 275: reporter@@seq [VSEQ] checking pslverr
+# ** Info: p4 pass
+#    Time: 275 ns Started: 275 ns  Scope: top.vif File: interface.sv Line: 62
+# ** Info: p1 pass
+#    Time: 275 ns Started: 275 ns  Scope: top.vif File: interface.sv Line: 34
+# ** Info: p6 pass
+#    Time: 275 ns Started: 275 ns  Scope: top.vif File: interface.sv Line: 80
+# UVM_INFO apb_driver.sv(64) @ 295: uvm_test_top.env.agt.drv [DRIVER FROM WRITE:] Driverfor write
+# UVM_INFO apb_scoreboard.sv(45) @ 295: uvm_test_top.env.scb [APB_SCB] PSLVERR received from DUT
+# UVM_INFO /usr/share/questa/questasim/verilog_src/uvm-1.2/src/base/uvm_objection.svh(1270) @ 295: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO apb_subscriber.sv(65) @ 295: uvm_test_top.env.cov [COV] Functional Coverage: 80.21%
+# UVM_INFO /usr/share/questa/questasim/verilog_src/uvm-1.2/src/base/uvm_report_server.svh(847) @ 295: reporter [UVM/REPORT/SERVER] 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :   56
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [APB_SCB]    15
+# [COV]     1
+# [DRIVER FROM WRITE:]    15
+# [Questa UVM]     2
+# [RNTST]     1
+# [TEST_DONE]     1
+# [UVM/RELNOTES]     1
+# [VSEQ]    20
