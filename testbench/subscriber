@@ -1,0 +1,68 @@
+`include "uvm_macros.svh" 
+import uvm_pkg::*;
+
+class apb_subscriber extends uvm_component;
+  `uvm_component_utils(apb_subscriber)
+
+  apb_seq_item mon; 
+  uvm_tlm_analysis_fifo #(apb_seq_item) mon_cov_port;
+  real cov; 
+
+  covergroup cg;
+    cp_addr: coverpoint mon.paddr { 
+      bins low    = {[0:100]}; 
+      bins medium1 = {[101:200]};
+      bins high   = {[201:$]};
+    }
+
+    cp_wdata: coverpoint mon.pwdata {
+      bins low    = {[0:32'h2000]};
+      bins other  = {[32'h2001:$]};
+    }
+
+    cp_pwrite: coverpoint mon.pwrite {
+      bins write = {1};
+      bins read  = {0};
+    }
+
+    cp_pstrb: coverpoint mon.pstrb {
+      bins patterns[] = {[0:15]}; 
+    }
+
+    cp_slverr: coverpoint mon.pslverr {
+      bins ok  = {0};
+      bins err = {1};
+    }
+
+    cross_err_rw: cross cp_pwrite, cp_slverr;
+
+  endgroup
+
+  function new(string name="apb_subscriber", uvm_component parent=null);
+    super.new(name, parent);
+    cg = new(); 
+  endfunction
+
+  function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
+    mon_cov_port = new("mon_cov_port", this);
+  endfunction
+
+  task run_phase(uvm_phase phase);
+    forever begin
+      mon_cov_port.get(mon);
+      cg.sample();
+    end
+  endtask
+
+  function void extract_phase(uvm_phase phase);
+    super.extract_phase(phase);
+    cov= cg.get_coverage();
+  endfunction
+
+  function void report_phase(uvm_phase phase);
+    super.report_phase(phase);
+    `uvm_info("COV", $sformatf("Functional Coverage: %0.2f%%", cov), UVM_LOW);
+  endfunction
+
+endclass
