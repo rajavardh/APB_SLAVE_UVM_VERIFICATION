@@ -1,0 +1,71 @@
+
+class apb_driver extends uvm_driver#(apb_seq_item);
+  `uvm_component_utils(apb_driver)
+  
+  virtual apb_if vif;
+  
+  function new(string name="apb_driver", uvm_component parent=null);
+    super.new(name, parent);
+  endfunction
+  
+  function void build_phase(uvm_phase phase);
+    super.build_phase(phase); 
+    if(!uvm_config_db#(virtual apb_if)::get(this, "", "vif", vif))
+      `uvm_fatal("DRV", "Virtual Interface not found in Config DB")
+  endfunction
+  
+  task run_phase(uvm_phase phase);
+    // IDLE 
+    vif.drv_cb.psel    <= 0;
+    vif.drv_cb.penable <= 0;
+    vif.drv_cb.pstrb   <= 0;
+    vif.drv_cb.pwrite  <= 0;
+    vif.drv_cb.paddr   <= 0;
+    vif.drv_cb.pwdata  <= 0; 
+   
+    forever begin
+      seq_item_port.get_next_item(req);
+      drive(req);
+      seq_item_port.item_done();
+    end
+  endtask
+  
+  task drive(apb_seq_item req);
+
+    // 1. SETUP PHASE
+
+    vif.drv_cb.paddr   <= req.paddr;
+    vif.drv_cb.pwrite  <= req.pwrite;
+    vif.drv_cb.psel    <= 1;
+    vif.drv_cb.penable <= 0;
+   
+    if(req.pwrite) begin
+      vif.drv_cb.pwdata <= req.pwdata;
+      vif.drv_cb.pstrb  <= req.pstrb;
+    end else begin
+      vif.drv_cb.pwdata <= 0;
+      vif.drv_cb.pstrb  <= 0;
+    end
+   
+
+    @(vif.drv_cb); 
+
+    // 2. ACCESS PHASE
+    vif.drv_cb.penable <= 1;
+
+    // 3. WAIT STATE HANDLING (Your specific question)
+
+    @(vif.drv_cb); 
+
+    while (vif.drv_cb.pready === 0) begin
+       `uvm_info("DRV", $sformatf("Waiting for PREADY... Addr: %0h", req.paddr), UVM_HIGH)
+       @(vif.drv_cb); 
+    end
+    `uvm_info("DRIVER FROM WRITE:",$sformatf("Driverfor write"),UVM_LOW);
+//      req.print();
+    vif.drv_cb.psel    <= 0;
+    vif.drv_cb.penable <= 0;
+    vif.drv_cb.pstrb   <= 0;
+    
+  endtask
+endclass
