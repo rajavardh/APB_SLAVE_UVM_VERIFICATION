@@ -1,0 +1,46 @@
+
+`include "uvm_macros.svh"
+`include "apb_pkg.sv"
+`include "interface.sv"
+`include "design.sv"
+module top;
+  import uvm_pkg::*;  
+  import apb_pkg::*;
+ 
+  bit pclk;
+  bit prstn;
+  
+  always #5 pclk = ~pclk;
+  initial begin
+    prstn = 0;
+    pclk = 0;
+//   presetn = 0;
+	#10 prstn = 1;
+  end
+  apb_if vif(pclk,prstn);
+
+  apb_slave dut (
+    .PCLK(pclk),
+    .PRESETn(prstn),
+    .PSEL(vif.psel),
+    .PENABLE(vif.penable),
+    .PSTRB(vif.pstrb),
+    .PREADY(vif.pready),
+    .PWRITE(vif.pwrite),
+    .PADDR(vif.paddr),
+    .PWDATA(vif.pwdata),
+    .PSLVERR(vif.pslverr),
+    .PRDATA(vif.prdata)
+);
+  
+  initial begin 
+    uvm_config_db#(virtual apb_if)::set(null,"*","vif",vif);
+    $dumpfile("dump.vcd");
+	$dumpvars;
+  end
+  
+  initial begin 
+    run_test("apb_test");
+    #50 $finish;
+  end
+endmodule
