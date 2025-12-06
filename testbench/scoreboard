@@ -1,0 +1,82 @@
+`include "uvm_macros.svh"
+import uvm_pkg::*;
+
+class apb_scoreboard extends uvm_scoreboard;
+  `uvm_component_utils(apb_scoreboard)
+
+  uvm_tlm_analysis_fifo #(apb_seq_item) mon_scb_port;
+
+  bit [31:0] ref_mem [int]; 
+
+  apb_seq_item mon_item;
+
+  function new(string name = "apb_scoreboard", uvm_component parent);
+    super.new(name, parent);
+  endfunction 
+
+  virtual function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
+    mon_scb_port = new("mon_scb_port", this);
+  endfunction 
+
+  virtual task run_phase(uvm_phase phase);
+    forever begin
+      mon_scb_port.get(mon_item);
+      compute_val(mon_item);
+    end
+  endtask 
+
+  task compute_val(apb_seq_item mon);
+    bit [31:0] exp_data;
+    bit [31:0] current_mem_val;
+
+    if (mon.paddr === 'bx || (mon.pwrite && mon.pwdata === 'bx)) begin    
+
+      if (mon.pslverr !== 1'b1) begin
+        `uvm_error("APB_SCB", $sformatf("Addr/Data is 'X', expected PSLVERR=1 but got=%0b", mon.pslverr))
+      end
+      else begin
+        `uvm_info("APB_SCB", "Input was 'X', and PSLVERR was correctly asserted.", UVM_LOW)
+      end
+      return; 
+    end
+
+    if (mon.pslverr) begin
+      `uvm_info("APB_SCB", "PSLVERR received from DUT", UVM_MEDIUM)
+      return;
+    end
+
+    if (mon.pwrite) begin
+
+       if (ref_mem.exists(mon.paddr)) 
+         current_mem_val = ref_mem[mon.paddr];
+       else 
+         current_mem_val = 32'h0;
+
+       if (mon.pstrb[0]) current_mem_val[7:0]   = mon.pwdata[7:0];
+       if (mon.pstrb[1]) current_mem_val[15:8]  = mon.pwdata[15:8];
+       if (mon.pstrb[2]) current_mem_val[23:16] = mon.pwdata[23:16];
+       if (mon.pstrb[3]) current_mem_val[31:24] = mon.pwdata[31:24];
+
+       ref_mem[mon.paddr] = current_mem_val;
+       
+      `uvm_info("APB_SCB", $sformatf("WRITE to Addr=%0d Data=%0d Strobe=%b", 
+                                      mon.paddr, current_mem_val, mon.pstrb), UVM_LOW)
+    end
+
+    else begin
+       exp_data = ref_mem.exists(mon.paddr) ? ref_mem[mon.paddr] : 32'h0;
+       
+       if (mon.prdata !== exp_data) begin
+         `uvm_error("APB_SCB", $sformatf("READ MISMATCH Addr=%0d Exp=%0d Got=%0d", 
+                                         mon.paddr, exp_data, mon.prdata))
+       end
+       else begin
+         `uvm_info("APB_SCB", $sformatf("READ MATCH Addr=%0d Data=%0d", 
+                                        mon.paddr, mon.prdata), UVM_LOW)
+       end
+    end
+
+  endtask
+
+endclass
