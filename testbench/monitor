@@ -1,0 +1,42 @@
+
+class apb_monitor extends uvm_monitor;
+  `uvm_component_utils(apb_monitor)
+  
+  virtual apb_if vif; 
+  
+  uvm_analysis_port#(apb_seq_item) item_collected_port; 
+  
+  function new(string name="apb_monitor", uvm_component parent=null);
+    super.new(name, parent);
+    item_collected_port = new("item_collected_port", this);
+  endfunction
+  
+  function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
+    if(!uvm_config_db#(virtual apb_if)::get(this, "", "vif", vif))
+      `uvm_fatal("MON", "Virtual Interface not found in Config DB")
+  endfunction
+  
+  task run_phase(uvm_phase phase);
+    forever begin
+      @(vif.mon_cb);
+      
+      if (vif.mon_cb.psel && vif.mon_cb.penable && vif.mon_cb.pready) begin
+        
+        apb_seq_item req;
+        req = apb_seq_item::type_id::create("req");
+        req.paddr   = vif.mon_cb.paddr;
+        req.pwrite  = vif.mon_cb.pwrite;
+        req.pslverr = vif.mon_cb.pslverr;
+        req.pwdata = vif.mon_cb.pwdata;
+        req.pstrb  = vif.mon_cb.pstrb;
+        req.prdata = vif.mon_cb.prdata; 
+        
+        `uvm_info("APB_MON", $sformatf("Monitor Collected: %s", req.convert2string()), UVM_HIGH);
+        
+        item_collected_port.write(req);
+      end
+    end
+  endtask
+  
+endclass
